@@ -13,6 +13,8 @@ namespace CsharpWFPlaceholder
 {
     public partial class Form1 : Form
     {
+        System.Diagnostics.Stopwatch timer1 = new System.Diagnostics.Stopwatch();
+        List<string> words = new List<string>();
         public Form1()
         {
             InitializeComponent();
@@ -28,39 +30,66 @@ namespace CsharpWFPlaceholder
             DialogResult res1 = openFileDialog1.ShowDialog();
             if (res1 == DialogResult.OK)
             {
-                List<string> words = new List<string>();
+                timer1.Reset();
+                timer1.Start();
+                words.Clear();
                 foreach (string i in File.ReadAllText(openFileDialog1.FileName).Split())
                 {
-                    words.Add(i);
-                }
-
-                List<int> dublicates = new List<int>();
-                for (int i = 0; i < words.Count; i++)
-                {
-                    if (dublicates.Contains(i)) { continue; }
-                    for (int b = 0; b < words.Count; b++)
+                    if (!words.Contains(i))
                     {
-                        if (words[i] == words[b] && b != i)
-                        {
-                            dublicates.Add(b);
-                        }
+                        words.Add(i);
                     }
                 }
-                foreach (int i in dublicates)
+                while (words.Contains(""))
                 {
-                    words.RemoveAt(i);
+                    words.Remove("");
                 }
 
+                listBox1.BeginUpdate();
+                listBox1.Items.Clear();
+                listBox2.Items.Clear();
                 foreach (string i in words)
                 {
-                    listBox1.Items.Add(i);
+                    string word = i;
+                    foreach (char b in ".,?!")
+                    {
+                        word = word.Replace(b, '\0');
+                    }
+                    listBox1.Items.Add(word);
                 }
-
+                listBox1.EndUpdate();
+                timer1.Stop();
+                label1.Text = "Затраченное время: " + timer1.ElapsedMilliseconds.ToString() + " мс";
             }
             else if (res1 == DialogResult.Cancel)
             {
                 MessageBox.Show("Файл не был выбран!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string word = textBox1.Text;
+            bool found = false;
+            timer1.Reset();
+            timer1.Start();
+            foreach (string i in words)
+            {
+                if (i.Contains(word))
+                {
+                    listBox2.BeginUpdate(); //????????????
+                    listBox2.Items.Add(word);
+                    listBox2.EndUpdate();
+                    found = true;
+                    break;
+                }
+            }
+            timer1.Stop();
+            label5.Text = "Затраченное время: ";
+            if (timer1.ElapsedMilliseconds == 0) { label5.Text += "<1 мс"; }
+            else { label5.Text += timer1.ElapsedMilliseconds.ToString() + " мс" ; }
+            if (!found) { label5.Text += " (Слово не найдено)"; }
+            textBox1.Text = "";
         }
     }
 }
