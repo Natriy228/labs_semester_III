@@ -12,7 +12,12 @@ namespace Decoder
     public interface IDecoder
     {
         void BeginWork(string filename);
-        int DecodeNext();
+        char DecodeNext();
+    }
+    public interface IEncoder
+    {
+        void BeginWork(string filename);
+        void SendNext(char smb);
     }
     public interface ILogger
     {
@@ -21,76 +26,85 @@ namespace Decoder
     //Создание классов
     public class ClassicDecoder : IDecoder
     {
-        long current_pixel;
-        byte[] readed_info;
+        int current_char;
+        string readed_info;
         public void BeginWork(string filename)
         {
-            readed_info = File.ReadAllBytes(filename);
-            current_pixel = 0;
+            readed_info = File.ReadAllText(filename);
+            current_char = 0;
         }
 
-        public int DecodeNext()
+        public char DecodeNext()
         {
-            if (current_pixel < readed_info.Length)
+            if (current_char < readed_info.Length)
             {
-                byte to_return = readed_info[current_pixel];
-                current_pixel += 1;
+                char to_return = readed_info[current_char];
+                current_char += 1;
                 return to_return;
             }
             else
             {
-                return -1;
+                return '\0';
             }
         }
     }
 
     public class Crypt1Decoder : IDecoder
     {
-        long current_pixel;
-        byte[] readed_info;
+        int current_char;
+        string readed_info;
         public void BeginWork(string filename)
         {
-            readed_info = File.ReadAllBytes(filename);
-            current_pixel = 0;
+            readed_info = File.ReadAllText(filename);
+            current_char = 0;
         }
 
-        public int DecodeNext()
+        public char DecodeNext()
         {
-            if (current_pixel < readed_info.Length)
+            if (current_char < readed_info.Length)
             {
-                byte to_return = Convert.ToByte(readed_info[current_pixel] - Convert.ToByte(4));
-                current_pixel += 1;
+                char to_return = Convert.ToChar(Convert.ToInt32(readed_info[current_char]) - 4);
+                current_char += 1;
                 return to_return;
             }
             else
             {
-                return -1;
+                return '\0';
             }
         }
     }
 
     public class Crypt2Decoder : IDecoder
     {
-        long current_pixel;
-        byte[] readed_info;
+        int current_char;
+        string readed_info;
         public void BeginWork(string filename)
         {
-            readed_info = File.ReadAllBytes(filename);
-            current_pixel = 0;
+            readed_info = File.ReadAllText(filename);
+            current_char = 0;
         }
 
-        public int DecodeNext()
+        public char DecodeNext()
         {
-            if (current_pixel < readed_info.Length)
+            if (current_char < readed_info.Length)
             {
-                byte to_return = Convert.ToByte(readed_info[current_pixel] / Convert.ToByte(2));
-                current_pixel += 1;
+                char to_return = Convert.ToChar(Convert.ToInt32(readed_info[current_char]) / 3);
+                current_char += 1;
                 return to_return;
             }
             else
             {
-                return -1;
+                return '\0';
             }
+        }
+    }
+
+    public class ClassicEncoder : IEncoder
+    {
+        string current_file;
+        public void BeginWork(string filename)
+        {
+            current_file = filename;
         }
     }
 

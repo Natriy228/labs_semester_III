@@ -28,24 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox = new System.Windows.Forms.PictureBox();
             this.showb = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.loggercb = new System.Windows.Forms.ComboBox();
             this.codeccb = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
-            // 
-            // pictureBox
-            // 
-            this.pictureBox.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.pictureBox.Location = new System.Drawing.Point(12, 12);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(776, 436);
-            this.pictureBox.TabIndex = 0;
-            this.pictureBox.TabStop = false;
             // 
             // showb
             // 
@@ -109,22 +98,17 @@
             this.Controls.Add(this.codeccb);
             this.Controls.Add(this.loggercb);
             this.Controls.Add(this.showb);
-            this.Controls.Add(this.pictureBox);
-            this.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.MaximumSize = new System.Drawing.Size(816, 582);
             this.MinimumSize = new System.Drawing.Size(816, 582);
             this.Name = "Form1";
             this.Text = "Photo decoder";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.Button showb;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ComboBox loggercb;

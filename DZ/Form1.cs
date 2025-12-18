@@ -21,28 +21,7 @@ namespace Decoder
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Graphics draw = pictureBox.CreateGraphics();
-            SolidBrush brush = new SolidBrush(Color.FromArgb(255, 255, 255));
-            Pen pen = new Pen(brush);
-            Rectangle rect = new Rectangle();
-            rect.X = 10; rect.Y = 10; rect.Width = 1; rect.Height = 1;
-            decoder.BeginWork("C:\\Users\\dlyut\\OneDrive\\Desktop\\Учёба\\ОП\\Semester III\\DZ\\obj\\Debug\\Linear");
-            int pixel = decoder.DecodeNext();
-            int cx = 0; int cy = 0;
-            while (pixel != -1)
-            {
-                rect.X = cx * 2; rect.Y = cy * 2;
-                brush.Color = Color.FromArgb(pixel, pixel, pixel);
-                pen.Brush = brush;
-                draw.DrawRectangle(pen, rect);
-                cx++;
-                if (cx % 388 == 0)
-                {
-                    cy++;
-                    cx = 0;
-                }
-                pixel = decoder.DecodeNext();
-            }
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
