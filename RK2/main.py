@@ -81,8 +81,6 @@ def HousesWithGaz():
             res.append((FindHouseByID(i.house_ID).ID, FindStreetByID(i.street_ID).name))
     return res
 
-tests_counter = 1
-
 class TestStringMethods(unittest.TestCase):
     def setUp(self):
         pass
