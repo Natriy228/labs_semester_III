@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace Decoder
     {
         ILogger logger = new LogLogger();
         IDecoder decoder = new ClassicDecoder();
+        IEncoder encoder = new ClassicEncoder();
         public Form1()
         {
             InitializeComponent();
@@ -21,7 +23,42 @@ namespace Decoder
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                decoder.BeginWork(openFileDialog1.FileName);
+                char nexts = decoder.DecodeNext();
+                richTextBox1.Clear();
+                while (nexts != '\0')
+                {
+                    richTextBox1.Text += nexts;
+                    nexts = decoder.DecodeNext();
+                }
+                richTextBox1.Update();
+                decoder.EndWork();
+                logger.SendReport(Application.StartupPath, "Чтение файла завершено\n");
+            }
+            else
+            {
+                logger.SendReport(Application.StartupPath, "Файл не найден\n");
+            }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                encoder.BeginWork(saveFileDialog1.FileName);
+                for (int i = 0; i < richTextBox1.Text.Length; ++i)
+                {
+                    encoder.SendNext(richTextBox1.Text[i]);
+                }
+                encoder.EndWork();
+                logger.SendReport(Application.StartupPath, "Запись файла завершена\n");
+            }
+            else
+            {
+                logger.SendReport(Application.StartupPath, "Файл не найден\n");
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -39,9 +76,9 @@ namespace Decoder
         {
             switch (codeccb.SelectedIndex)
             {
-                case 0: { decoder = new ClassicDecoder(); break; }
-                case 1: { decoder = new Crypt1Decoder(); break; }
-                case 2: { decoder = new Crypt2Decoder(); break; }
+                case 0: { decoder = new ClassicDecoder(); encoder = new ClassicEncoder(); break; }
+                case 1: { decoder = new Crypt1Decoder(); encoder = new Crypt1Encoder(); break; }
+                case 2: { decoder = new Crypt2Decoder(); encoder = new Crypt2Encoder(); break; }
             }
         }
 

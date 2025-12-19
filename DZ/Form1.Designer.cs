@@ -34,6 +34,9 @@
             this.codeccb = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // showb
@@ -42,7 +45,7 @@
             this.showb.Name = "showb";
             this.showb.Size = new System.Drawing.Size(129, 23);
             this.showb.TabIndex = 1;
-            this.showb.Text = "Отобразить";
+            this.showb.Text = "Чтение";
             this.showb.UseVisualStyleBackColor = true;
             this.showb.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -53,9 +56,9 @@
             // loggercb
             // 
             this.loggercb.FormattingEnabled = true;
-            this.loggercb.Location = new System.Drawing.Point(140, 511);
+            this.loggercb.Location = new System.Drawing.Point(147, 511);
             this.loggercb.Name = "loggercb";
-            this.loggercb.Size = new System.Drawing.Size(121, 21);
+            this.loggercb.Size = new System.Drawing.Size(129, 21);
             this.loggercb.TabIndex = 2;
             this.loggercb.Text = "Журнал";
             this.loggercb.SelectedIndexChanged += new System.EventHandler(this.loggercb_SelectedIndexChanged);
@@ -63,9 +66,9 @@
             // codeccb
             // 
             this.codeccb.FormattingEnabled = true;
-            this.codeccb.Location = new System.Drawing.Point(140, 484);
+            this.codeccb.Location = new System.Drawing.Point(147, 484);
             this.codeccb.Name = "codeccb";
-            this.codeccb.Size = new System.Drawing.Size(121, 21);
+            this.codeccb.Size = new System.Drawing.Size(129, 21);
             this.codeccb.TabIndex = 3;
             this.codeccb.Text = "Последовательный";
             this.codeccb.SelectedValueChanged += new System.EventHandler(this.codeccb_SelectedValueChanged);
@@ -88,11 +91,31 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Вид системных отчётов";
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(12, 12);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(776, 437);
+            this.richTextBox1.TabIndex = 7;
+            this.richTextBox1.Text = "";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(147, 455);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(129, 23);
+            this.button2.TabIndex = 8;
+            this.button2.Text = "Запись";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button1_Click_1);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 543);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.codeccb);
@@ -115,6 +138,9 @@
         private System.Windows.Forms.ComboBox codeccb;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.Button button2;
     }
 }
 
